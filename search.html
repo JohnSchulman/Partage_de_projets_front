@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="my_style.css"/>
+    <title>Recherche</title>
+</head>
+<body>
+<header class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">PCP</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="projects.html">Les projets</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="search.html">Recherche <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+        <form class="form-inline" action="search.html">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <div class="mr-auto ml-2">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="avatar.jpg" class="mr-2 circle" width="40" height="40"/>
+                    John Schulman
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button" onclick="window.location.href='settings.html'"><i class="fa fa-project-diagram menu-icon"></i> Paramètres</button>
+                    <button class="dropdown-item" type="button" onclick="window.location.href='projects.html'"><i class="fa fa-cogs menu-icon"></i> Mes projets</button>
+                    <button class="dropdown-item" type="button" onclick="window.location.href='index.html'"><i class="fa fa-sign-out-alt menu-icon"></i> Déconnection</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="dropdown-menu autocomplete-search">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Separated link</a>
+</div>
+<main class="container-fluid projects">
+    <div class="title">
+        <h1>Les projets</h1>
+    </div>
+    <div class="row card-projects-list">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card">
+                <img class="card-img" src="capture.png" alt="Card image cap">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                <div class="card-body" data-max_length="60">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="card-link">Télécharger</a>
+                    <a href="#" class="card-link enabled">Voir plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card">
+                <img class="card-img" src="capture.png" alt="Card image cap">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                <div class="card-body" data-max_length="60">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="card-link">Télécharger</a>
+                    <a href="#" class="card-link enabled">Voir plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card">
+                <img class="card-img" src="capture.png" alt="Card image cap">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                <div class="card-body" data-max_length="60">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="card-link">Télécharger</a>
+                    <a href="#" class="card-link enabled">Voir plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card">
+                <img class="card-img" src="capture.png" alt="Card image cap">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                <div class="card-body" data-max_length="60">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="card-link">Télécharger</a>
+                    <a href="#" class="card-link enabled">Voir plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card">
+                <img class="card-img" src="capture.png" alt="Card image cap">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                <div class="card-body" data-max_length="60">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="card-link">Télécharger</a>
+                    <a href="#" class="card-link enabled">Voir plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card">
+                <img class="card-img" src="capture.png" alt="Card image cap">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                <div class="card-body" data-max_length="60">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="card-link">Télécharger</a>
+                    <a href="#" class="card-link enabled">Voir plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card">
+                <img class="card-img" src="capture.png" alt="Card image cap">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                <div class="card-body" data-max_length="60">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="card-link">Télécharger</a>
+                    <a href="#" class="card-link enabled">Voir plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card">
+                <img class="card-img" src="capture.png" alt="Card image cap">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                <div class="card-body" data-max_length="60">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="card-link">Télécharger</a>
+                    <a href="#" class="card-link enabled">Voir plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card">
+                <img class="card-img" src="capture.png" alt="Card image cap">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                </div>
+                <div class="card-body" data-max_length="60">
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <a href="#" class="card-link">Télécharger</a>
+                    <a href="#" class="card-link enabled">Voir plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="container-fluid card-footer">
+    <div class="row">
+        <div class="col-4">
+            <form>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" aria-describedby="emailHelp"
+                           placeholder="Votre email"/>
+                </div>
+                <div class="form-group">
+                    <label for="email_message">Votre message</label>
+                    <textarea type="text" name="email_message" id="email_message" class="form-control"
+                              aria-describedby="emailMessage" placeholder="Entrez votre mail"></textarea>
+                </div>
+                <div class="col-4 offset-8">
+                    <input type="submit" value="Envoyer" class="form-control"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="script.js"></script>
+</body>
+</html>
