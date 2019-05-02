@@ -1,5 +1,6 @@
 $(window).ready(() => {
     function init_paragraphs_size() {
+        // selecteur en jquery
         $('.card-projects-list .card .card-body').each((key, elem) => {
         // permet de recuperer la valeur de data-max_length de l'élément courant
             let max_length = $(elem).data('max_length');
@@ -23,10 +24,6 @@ $(window).ready(() => {
     // intialize la class de l'élément à hide
     // tu cache l'élément au chargement
     autocomplete_search.hide();
-    // tu enregistre l'événemeent key down sur la barre de recherche
-    // cad tu fais un event listenner sur l'input type search
-    // je selectionne le pemier élément input de type search
-    // ensuite j'appelle "on" cad le listenner
     function on_search_change(e) {
         // je récupère la valeur .val() de l'élément e.target dans une variable
         let value = $(e.target).val();
@@ -34,16 +31,23 @@ $(window).ready(() => {
         // supérieur ou égal à deux sinon je cache
         value.length >= 2 ? autocomplete_search.show() : autocomplete_search.hide();
     }
-    // je met un element html dans une variable
-    let input_search = $('input[type="search"]:first');
-    // focus quand on rentre l'élément
-    input_search.on('keydown', on_search_change);
-    // blurr c'est quand on click à côté
-    input_search.on('blur', on_search_change);
+
+
+    (() => {
+        // je met un element html dans une variable
+        // CAD je selectionne le pemier élément input de type search
+        let input_search = $('input[type="search"]:first');
+        // Je fais deux event listenner sur l'input type search
+        // J'appelle "on" cad le listenner
+        // et j'enregistre l'événemeent key down et blur sur la barre de recherche
+        input_search.on('keydown', on_search_change);
+        input_search.on('blur', on_search_change);
+    })();
+
 
     function write_projects_cards(data = []) {
         let projects_container = $('.card-projects-list:first');
-        data.forEach(project => {
+        $(data).each((key, project) => {
             let project_template = '<div class="col-sm-12 col-md-6 col-lg-4">\n' +
                 '            <div class="card">\n' +
                 '                <img class="card-img" src="capture.png" alt="Card image cap">\n' +
@@ -61,20 +65,19 @@ $(window).ready(() => {
             // permet d'écrire dans le container. Je recupère le code du html plus je rajoute projects_termplate
             // si il y quelque chose sa rajoute sinon ca récupère
             // c'était pour rajouter project_template
+
             projects_container.html(projects_container.html() + project_template);
         });
         init_paragraphs_size();
     }
     /*$.ajax({
         url: 'toto.php',
-        method: 'pots',
+        method: 'post',
         data: {
             'toto': 'test'
         },
         async: false
-    }).done(data => {
-        write_projects_cards(data);
-    });*/
+    }).done(data =>  write_projects_cards(data));*/
 
     let fake_data = [{
         id: 0,
@@ -108,6 +111,41 @@ $(window).ready(() => {
 
     write_projects_cards(fake_data);
 
+    //selecteur de la classe add-button
+    // on boucle sur le tableau d'éléments
 
-
+    $('.add-button').each((key, button) => {
+        $(button).on('click', () => {
+            let add_type = $(button).data('add_type');
+            switch (add_type) {
+                case 'phone-number':
+                    let phone_container = $('.phone-container:first');
+                    let tel = $('#tel');
+                    if(tel.val() === '') {
+                        tel.focus();
+                    }
+                    else {
+                        phone_container.append('<div style="margin-top: 5px; margin-bottom: 5px;">\n' +
+                            '   <input type="tel" name="tel" placeholder="Telephone" class="form-control"/>\n' +
+                            '</div>');
+                    }
+                    break;
+                case 'email':
+                    let email_container = $('.email-container:first');
+                    let email = $('#email');
+                    if(email.val() === '') {
+                        email.focus();
+                    }
+                    else {
+                        email_container.append('<div style="margin-top: 5px; margin-bottom: 5px;">\n' +
+                            '   <input type="email" name="email" placeholder="Email" class="form-control"/>\n' +
+                            '</div>');
+                    }
+                    break;
+                default:
+                    break;
+            }
+            // console.log(button.getAttribute('data_add_type'));
+        });
+    });
 });
