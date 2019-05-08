@@ -1,4 +1,40 @@
 $(window).ready(() => {
+    const ERROR = 0;
+    const SUCCESS = 1;
+    const WARNING = 2;
+    const NOTICE = 3;
+    function add_bootstrap_alert(message, type = SUCCESS) {
+        let alert_type;
+        switch (type) {
+            case SUCCESS:
+                alert_type = 'success';
+                break;
+            case ERROR:
+                alert_type = 'danger';
+                break;
+            case WARNING:
+                alert_type = 'warning';
+                break;
+            case NOTICE:
+                alert_type = 'notice';
+                break;
+            default:
+                alert_type = 'success';
+                break;
+        }
+        // concatène le html avec les bonnes variable
+        let template = '<div class="alert alert-' + alert_type + ' alert-dismissible fade show" role="alert">\n' +
+            message +
+            '  <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+            '    <span aria-hidden="true">&times;</span>\n' +
+            '  </button>\n' +
+            '</div>';
+        // pour l'ajouter à la fin du container.  Je creer html + ajloute le template
+        $('.alerts-container').html($('.alerts-container').html() + template);
+        // pour initialiser
+        $('.alert').alert();
+    }
+
     function init_paragraphs_size() {
         // selecteur en jquery
         $('.card-projects-list .card .card-body').each((key, elem) => {
@@ -77,7 +113,8 @@ $(window).ready(() => {
             'toto': 'test'
         },
         async: false
-    }).done(data =>  write_projects_cards(data));*/
+    }).done(data =>  write_projects_cards(data);
+    });*/
 
     let fake_data = [{
         id: 0,
@@ -113,23 +150,30 @@ $(window).ready(() => {
 
     //selecteur de la classe add-button
     // on boucle sur le tableau d'éléments
-
     $('.add-button').each((key, button) => {
+        // on crée un évènement
         $(button).on('click', () => {
+            // une attribut personnalisé qu'on met dans add_types
             let add_type = $(button).data('add_type');
+            // switch-case sur phone et mail (add-types)
             switch (add_type) {
                 case 'phone-number':
+                    // on transform la class phone-container en objet et on le met dans une variable
                     let phone_container = $('.phone-container:first');
+                    // transform idTel en objet qu'on let dans tel
                     let tel = $('#tel');
+                    // s'il y a rien dzns tel on lui met le focus
                     if(tel.val() === '') {
                         tel.focus();
                     }
+                    // sinon on rajoute une input à la class 'phone-container'
                     else {
                         phone_container.append('<div style="margin-top: 5px; margin-bottom: 5px;">\n' +
                             '   <input type="tel" name="tel" placeholder="Telephone" class="form-control"/>\n' +
                             '</div>');
                     }
                     break;
+                    // même principe pour email
                 case 'email':
                     let email_container = $('.email-container:first');
                     let email = $('#email');
@@ -148,4 +192,36 @@ $(window).ready(() => {
             // console.log(button.getAttribute('data_add_type'));
         });
     });
+
+    let form_upload_file = $('#upload_project');
+    form_upload_file.on('submit', e => {
+        e.preventDefault();
+
+        let file_data = $('#project-uploaded').prop('files')[0];
+        let form_data = new FormData();
+        form_data.append('project', file_data);
+        form_data.append('author', $('#recipient-name').val());
+        form_data.append('name', $('#project-name').val());
+        form_data.append('description', $('#message-text').val());
+        form_data.append('downloadable', '');
+        $.ajax({
+            url: form_upload_file.attr('action'), // point to server-side PHP script
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post'
+        }).done(data => {
+            let message = $('#upload-project-error-message');
+
+            if(data.status) {
+                console.log("it's ok");
+                add_bootstrap_alert("L'upload s'est effectué avec succes !");
+            }
+            else {
+                message.html(data.message);
+                message.css('color', 'red');
+            }
+        });
+    })
 });
