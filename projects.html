@@ -62,11 +62,8 @@
 <div class="row alerts-container"></div>
 <div class="row">
     <div class="form-group col-4 offset-4 col-lg-4 offset-lg-4">
-        <button type="button" class="btn btn-primary form-control" data-toggle="modal" data-target="#exampleModal"
-                data-whatever="@getbootstrap">Add Projets
-        </button>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <button type="button" class="btn btn-primary form-control" data-toggle="modal" data-target="#modalAddProject">Add Projets</button>
+        <div class="modal fade" id="modalAddProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -93,6 +90,16 @@
                             <div class="input-group">
                                 <input accept=”.zip” type="file" class="custom-file-input" id="project-uploaded" name="project-uploaded">
                                 <label class="custom-file-label" for="project-uploaded">Choisir un fichier</label>
+                            </div>
+                            <div class="input-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" id="downloadable">
+                                    <label class="form-check-label" for="downloadable">
+                                        Téléchargable
+                                    </label>
+                                </div>
+                                <!--<label for="downloadable" class="col-form-label">Téléchargable:</label>
+                                <input type="checkbox" id="downloadable" name="downloadable" checked>-->
                             </div>
                         </div>
                         <div class="modal-footer">

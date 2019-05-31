@@ -1,10 +1,13 @@
 $(window).ready(() => {
+    // les bons constants
     const ERROR = 0;
     const SUCCESS = 1;
     const WARNING = 2;
     const NOTICE = 3;
+
     function add_bootstrap_alert(message, type = SUCCESS) {
         let alert_type;
+        // un switch case avec le bonne type d'alert
         switch (type) {
             case SUCCESS:
                 alert_type = 'success';
@@ -29,7 +32,7 @@ $(window).ready(() => {
             '    <span aria-hidden="true">&times;</span>\n' +
             '  </button>\n' +
             '</div>';
-        // pour l'ajouter à la fin du container.  Je creer html + ajloute le template
+        // pour l'ajouter à la fin du container. Je creer html + ajloute le template
         $('.alerts-container').html($('.alerts-container').html() + template);
         // pour initialiser
         $('.alert').alert();
@@ -38,7 +41,7 @@ $(window).ready(() => {
     function init_paragraphs_size() {
         // selecteur en jquery
         $('.card-projects-list .card .card-body').each((key, elem) => {
-        // permet de recuperer la valeur de data-max_length de l'élément courant
+            // permet de recuperer la valeur de data-max_length de l'élément courant
             let max_length = $(elem).data('max_length');
             // ici on test si il existe
             if (max_length !== undefined) {
@@ -55,11 +58,48 @@ $(window).ready(() => {
         });
     }
 
+    function check_before_delete_project(project_id) {
+        /*
+        * ouvrire la modale
+        * if(click sur on) {
+        *   $.ajax({
+                    url: '/Projet_B2/?controller=projects&action=delete',
+                    type: 'get',
+                    data: {
+                        id: project_id
+                    }
+                }).done(get_projects);
+        * }
+        * else() {
+        *  fermer la modale
+        * }
+        * */
+    }
+
+    function init_delete_project_button_on_click() {
+        $('.delete_project').each((key, button) => {
+            $(button).on('click', () => {
+                let project_id = $(button).attr('data-project-id');
+               // on supprime cette partie et on la remmplace par la ligne en bas
+                $.ajax({
+                    url: '/Projet_B2/?controller=projects&action=delete',
+                    type: 'get',
+                    data: {
+                        id: project_id
+                    }
+                }).done(get_projects);
+                //
+                /*check_before_delete_project(project_id);*/
+            });
+        });
+    }
+
     // je met $('.autocomplete-search:first'); dans une variable
     let autocomplete_search = $('.autocomplete-search:first');
     // intialize la class de l'élément à hide
     // tu cache l'élément au chargement
     autocomplete_search.hide();
+
     function on_search_change(e) {
         // je récupère la valeur .val() de l'élément e.target dans une variable
         let value = $(e.target).val();
@@ -83,8 +123,12 @@ $(window).ready(() => {
 
     function write_projects_cards(data = []) {
         let projects_container = $('.card-projects-list:first');
+        projects_container.html('');
         $(data).each((key, project) => {
             let project_template = '<div class="col-sm-12 col-md-6 col-lg-4">\n' +
+                '<i class="fa fa-trash-alt delete_project" ' +
+                '   style="position: absolute; z-index: 888; right: 25px; top: 25px; cursor: pointer;" ' +
+                '   title="Supprimer ce projet" data-project-id="' + project.id + '"></i>' +
                 '            <div class="card">\n' +
                 '                <img class="card-img" src="capture.png" alt="Card image cap">\n' +
                 '                <div class="card-img-overlay">\n' +
@@ -105,7 +149,9 @@ $(window).ready(() => {
             projects_container.html(projects_container.html() + project_template);
         });
         init_paragraphs_size();
+        init_delete_project_button_on_click();
     }
+
     /*$.ajax({
         url: 'toto.php',
         method: 'post',
@@ -116,7 +162,7 @@ $(window).ready(() => {
     }).done(data =>  write_projects_cards(data);
     });*/
 
-    let fake_data = [{
+    /*let fake_data = [{
         id: 0,
         path: '',
         name: 'Mon projet 1',
@@ -144,9 +190,17 @@ $(window).ready(() => {
         description: 'This is a longer card with supporting text below.',
         downloadable: false,
         create_date: new Date().getDate()
-    }];
+    }];*/
 
-    write_projects_cards(fake_data);
+    function get_projects() {
+        $.ajax({
+            url: '/Projet_B2/?controller=projects',
+            type: 'get'
+        }).done(write_projects_cards);
+    }
+    get_projects();
+
+    //write_projects_cards(fake_data);
 
     //selecteur de la classe add-button
     // on boucle sur le tableau d'éléments
@@ -163,7 +217,7 @@ $(window).ready(() => {
                     // transform idTel en objet qu'on let dans tel
                     let tel = $('#tel');
                     // s'il y a rien dzns tel on lui met le focus
-                    if(tel.val() === '') {
+                    if (tel.val() === '') {
                         tel.focus();
                     }
                     // sinon on rajoute une input à la class 'phone-container'
@@ -173,14 +227,13 @@ $(window).ready(() => {
                             '</div>');
                     }
                     break;
-                    // même principe pour email
+                // même principe pour email
                 case 'email':
                     let email_container = $('.email-container:first');
                     let email = $('#email');
-                    if(email.val() === '') {
+                    if (email.val() === '') {
                         email.focus();
-                    }
-                    else {
+                    } else {
                         email_container.append('<div style="margin-top: 5px; margin-bottom: 5px;">\n' +
                             '   <input type="email" name="email" placeholder="Email" class="form-control"/>\n' +
                             '</div>');
@@ -189,21 +242,29 @@ $(window).ready(() => {
                 default:
                     break;
             }
-            // console.log(button.getAttribute('data_add_type'));
         });
     });
 
+    // je met le formulaire dans le variable form_upload_file
     let form_upload_file = $('#upload_project');
+    // j'appel l'évènement on à ce variable
     form_upload_file.on('submit', e => {
+        // block l'envoi par défaut
         e.preventDefault();
-
+        // j'appel à mon objet contenant l'id de l'input prop
+        // le [0] récupère le file qu'on veut uploader
         let file_data = $('#project-uploaded').prop('files')[0];
+        // j'instancie mon objet FormData qui va envelopper toute les données
         let form_data = new FormData();
+        // mon premier data récupère le formulaire
         form_data.append('project', file_data);
+        // je met à l'interieur le data nécessaire sachant que les noms doivent
+        // correspondres au noms dans la fonction add_projects du ProjectsController
+        // on récupère son valeur grâce au id correspodnant et à val();
         form_data.append('author', $('#recipient-name').val());
         form_data.append('name', $('#project-name').val());
         form_data.append('description', $('#message-text').val());
-        form_data.append('downloadable', '');
+        form_data.append('downloadable', document.querySelector('#downloadable').checked);
         $.ajax({
             url: form_upload_file.attr('action'), // point to server-side PHP script
             cache: false,
@@ -212,13 +273,17 @@ $(window).ready(() => {
             data: form_data,
             type: 'post'
         }).done(data => {
+            // côté callback avec les bon messgae d'érreurs
             let message = $('#upload-project-error-message');
-
-            if(data.status) {
+            // premier message c'est un console.log
+            // ajax renvoit toujours à la fin un callback si on a un status
+            if (data.status) {
                 console.log("it's ok");
+                // une alert d'après la function js sachant que le type est success par défaut
                 add_bootstrap_alert("L'upload s'est effectué avec succes !");
-            }
-            else {
+                get_projects();
+            } else {
+                // un message d'érreur de couleur rouge
                 message.html(data.message);
                 message.css('color', 'red');
             }
