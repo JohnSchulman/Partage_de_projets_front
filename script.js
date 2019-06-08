@@ -82,12 +82,18 @@ $(window).ready(() => {
                 let project_id = $(button).attr('data-project-id');
                // on supprime cette partie et on la remmplace par la ligne en bas
                 $.ajax({
+                    // permet la suppresion d'un projet
                     url: '/Projet_B2/?controller=projects&action=delete',
                     type: 'get',
                     data: {
                         id: project_id
                     }
-                }).done(get_projects);
+                }).done(data => {
+                    if(!data.success) {
+                        $(button).click();
+                    }
+                    get_projects()
+                });
                 //
                 /*check_before_delete_project(project_id);*/
             });
@@ -125,6 +131,7 @@ $(window).ready(() => {
         let projects_container = $('.card-projects-list:first');
         projects_container.html('');
         $(data).each((key, project) => {
+            project.downloadable = parseInt(project.downloadable);
             let project_template = '<div class="col-sm-12 col-md-6 col-lg-4">\n' +
                 '<i class="fa fa-trash-alt delete_project" ' +
                 '   style="position: absolute; z-index: 888; right: 25px; top: 25px; cursor: pointer;" ' +
@@ -264,7 +271,8 @@ $(window).ready(() => {
         form_data.append('author', $('#recipient-name').val());
         form_data.append('name', $('#project-name').val());
         form_data.append('description', $('#message-text').val());
-        form_data.append('downloadable', document.querySelector('#downloadable').checked);
+        form_data.append('downloadable', document.getElementById('downloadable').checked);
+        console.log(document.getElementById('downloadable').checked);
         $.ajax({
             url: form_upload_file.attr('action'), // point to server-side PHP script
             cache: false,
